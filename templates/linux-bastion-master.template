@@ -203,7 +203,7 @@ Parameters:
   QSS3BucketName:
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).
-    Default: aws-quickstart
+    Default: aws-cn-quickstart
     Description: S3 bucket name for the Quick Start assets. Quick Start bucket name can
       include numbers, lowercase letters, uppercase letters, and hyphens (-). It
       cannot start or end with a hyphen (-).
@@ -217,7 +217,7 @@ Parameters:
       (.) and forward slash (/) and it should end with a forward slash (/).
     Type: String
   QSS3BucketRegion:
-    Default: 'us-east-1'
+    Default: 'cn-north-1'
     Description: The AWS Region where the Quick Start S3 bucket (QSS3BucketName) is hosted. When using your own bucket, you must specify this value.
     Type: String
   RemoteAccessCIDR:
@@ -234,7 +234,7 @@ Parameters:
 Conditions:
   UsingDefaultBucket: !Equals
     - !Ref QSS3BucketName
-    - 'aws-quickstart'
+    - 'aws-cn-quickstart'
 Resources:
   VPCStack:
     Type: 'AWS::CloudFormation::Stack'
@@ -243,7 +243,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}submodules/quickstart-aws-vpc/templates/aws-vpc.template
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket
@@ -268,7 +268,7 @@ Resources:
         - https://${S3Bucket}.s3.${S3Region}.${AWS::URLSuffix}/${QSS3KeyPrefix}templates/linux-bastion.template
         - S3Bucket: !If
             - UsingDefaultBucket
-            - !Sub 'aws-quickstart-${AWS::Region}'
+            - !Sub '${QSS3BucketName}-${AWS::Region}'
             - !Ref 'QSS3BucketName'
           S3Region: !If
             - UsingDefaultBucket

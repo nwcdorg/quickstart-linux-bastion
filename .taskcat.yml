@@ -23,6 +23,8 @@ project:
   - us-west-2
   - us-gov-east-1
   - us-gov-west-1
+  - cn-north-1
+  - cn-northwest-1
   template: templates/linux-bastion-master.template
   parameters:
     AvailabilityZones: $[taskcat_getaz_2]
@@ -84,3 +86,13 @@ tests:
   us1804hvm:
     parameters:
       BastionAMIOS: Ubuntu-Server-18.04-LTS-HVM
+  amznlinux2hvm-cn-north-1:
+    parameters:
+      BastionAMIOS: Amazon-Linux2-HVM
+    regions:
+      - cn-north-1
+  amznlinux2hvm-cn-northwest-1:
+    parameters:
+      BastionAMIOS: Amazon-Linux2-HVM
+    regions:
+      - cn-northwest-1
